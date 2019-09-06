@@ -1,11 +1,17 @@
-function [s] = lcsTrans(image)
-for pixel = image
-if (image >= 0) && (image <= 40)
-    r = 2*image;
-elseif (image > 40) && (image <= 60)
-    r = (2*image)/3 + (4/3);
-elseif (image > 60) && (image <= 100)
-    r = (2*image)/3 - (4/3);
+function [s] = lcsTrans(r)
+
+for m = 1:size(r,1)
+    for n = 1:size(r,2)
+        if (r(m,n)>=1) && (r(m,n)<= 100)
+            r(m,n) = 2.*double(r(m,n));
+        end
+        if (r(m,n)>=101) && (r(m,n)<= 154)
+            r(m,n) = (2.*double(r(m,n)))./3 + (4/3);
+        end
+        if (r(m,n)>=155) && (r(m,n)<= 255)
+            r(m,n) = (2.*double(r(m,n)))./3 - (4/3);
+        end
+    end
 end
 
-s = 1./(1+(m./r.^5));
+s = r;
