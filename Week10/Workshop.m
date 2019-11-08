@@ -1,0 +1,11 @@
+f = imread('calculator.tif');
+f_obr = imreconstruct(imerode(f, ones(1, 71)), f);
+f_thr = imtophat(im2bw(f), im2bw(f_obr));
+figure(1);imshow(f_thr);
+g_obr = imreconstruct(imerode(f_thr, ones(1, 11)), f_thr);
+figure(2);imshow(g_obr);
+g_obrd = imdilate(g_obr, ones(1,21));
+f2 = imreconstruct(min(g_obrd, f_thr), f_thr);
+f2e = imerode(f2, ones(1, 5));
+f2ed = imdilate(f2e, ones(1, 6));
+figure(3);imshow(f2ed);
